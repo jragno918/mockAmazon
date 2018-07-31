@@ -1,0 +1,23 @@
+{
+  "name": "mockamazon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "amazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jragno918/mockAmazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jragno918/mockAmazon/issues"
+  },
+  "homepage": "https://github.com/jragno918/mockAmazon#readme",
+  "dependencies": {
+    "inquirer": "^6.0.0",
+    "mysql": "^2.16.0"
+  }
+}
