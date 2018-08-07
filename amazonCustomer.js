@@ -26,16 +26,25 @@ connection.connect(function(err) {
 });
 
 function start() {
+  // Display all items available for sale
+  // Include the ids, names, and prices of products for sale
+  connection.query("SELECT * FROM products", function(err, results) {
 
+  });
 }
 
 function placeOrder() {
-
-
-
-
+  // Display two prompts:
+  // First, ask the user for the ID of the product they'd like to buy
+  // Secondly, ask how many units of the product they would like to buy
 }
 
 function quantityCheck() {
-  
+  // Once customer has placed the order, check if the store has a larg
+  // enough quantity of the product to handle the customer's request:
+
+  // If yes, update the database to reflect the remaining quantity
+  // and show the customer the total cost of their purchase
+
+  // If no, log a phrase such as "Insufficient Quantity"
 }
