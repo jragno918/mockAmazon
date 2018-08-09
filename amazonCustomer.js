@@ -18,6 +18,18 @@ var connection = mysql.createConnection({
   database: "amazon_DB"
 });
 
+// validateInput makes sure that the user is supplying only positive integers for their inputs
+function inputValidation(value) {
+	var int = Number.isInteger(parseFloat(value));
+	var sign = Math.sign(value);
+
+	if (int && (sign === 1)) {
+		return true;
+	} else {
+		return 'Please enter a whole non-zero number.';
+	}
+}
+
 function showInventory() {
   // Display all items available for sale
   var showProducts = "SELECT * FROM products";
@@ -54,6 +66,7 @@ function placeOrder() {
       type: "input",
       name: "item_id",
       message: "What is the ID of the item you would like to buy?",
+      validate: inputValidation,
       filter: Number
     },
     {
@@ -61,6 +74,7 @@ function placeOrder() {
       type: "input",
       name: "quantity",
       message: "Please enter the quantity you'd like to purchase",
+      validate: inputValidation,
       filter: Number
     }
   ]).then(function(input) {
@@ -68,19 +82,19 @@ function placeOrder() {
     var itemSelected = input.item_id;
     // Takes the user input for the stock_quantity
     var quantityOfItem = input.stock_quantity;
-
-    var showSelectedProducts = "SELECT * FROM products";
+    // Checks db to make sure the item_id is valid
+    var showSelectedProducts = "SELECT * FROM products WHERE ?";
 
     // Connects to the server
     connection.query(showSelectedProducts, {item_id: itemSelected}, function(err, results) {
-      // if (err) throw err
+      if (err) throw err;
 
       // Validates that the user enter an item_id
       if (results.length === 0) {
         console.log("Please enter a valid item id.");
 
         // Displays the product inventory for the user
-        showInventory();
+        // showInventory();
 
       } else {
 
