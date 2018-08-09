@@ -21,6 +21,7 @@ var connection = mysql.createConnection({
 function showInventory() {
   // Display all items available for sale
   var showProducts = "SELECT * FROM products";
+  // Connects to the server to display the inventory
   connection.query(showAllProducts, function(err, results) {
     if (err) throw err;
 
@@ -63,22 +64,35 @@ function placeOrder() {
       filter: Number
     }
   ]).then(function(input) {
+    // Takes the user input for the item_id
     var itemSelected = input.item_id;
+    // Takes the user input for the stock_quantity
     var quantityOfItem = input.stock_quantity;
 
+    // Connects to the server
     connection.query(showProducts, {item_id: item}, function(err, results) {
       if err throw err;
 
+      // Validates that the user enter an item_id
       if (results.length === 0) {
         console.log("Please enter a valid item id.");
+
+        // Displays the product inventory for the user
         showInventory();
+
       } else {
+
+        // Creates a variable for the results indexes
         var resultData = results[0];
 
+        // Validates that item quantity is in stock
         if (quantityOfItem <= resultData.stock_quantity) {
           console.log("Hang tight while we finalize your order.");
 
+          // Updates the product inventory
           var updateProductInventory = "UPDATE products SET stock_quantity = " + (resultData.stock_quantity - quantity) + "WHERE item_id" + itemSelected;
+
+          // Connects to the server to update the inventory
           connection.query(updateProductInventory, function(err, results) {
             if err throw err;
 
@@ -93,6 +107,7 @@ function placeOrder() {
           console.log("Please select a different amount of the product you chose.");
           console.log("\n---------------------------------------------\n");
 
+          // Displays the updated inventory
           showInventory();
         }
       }
