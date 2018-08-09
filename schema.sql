@@ -33,7 +33,7 @@ INSERT INTO products(item_id, product_name, department, price, stock_quantity)
 VALUES (8335, 'Hair Straightener', 'Beauty and Cosmetics', 75.47, 15);
 
 INSERT INTO products(item_id, product_name, department, price, stock_quantity)
-VALUES (0183, 'Grill Cover', 'Outdoors', 65.33, 50);
+VALUES (1832, 'Grill Cover', 'Outdoors', 65.33, 50);
 
 INSERT INTO products(item_id, product_name, department, price, stock_quantity)
 VALUES (8243, 'XBox One X', 'Electronics', 399.99, 20);

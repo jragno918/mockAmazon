@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "",
+  password: "Thor_2012",
   database: "amazon_DB"
 });
 
@@ -22,7 +22,7 @@ function showInventory() {
   // Display all items available for sale
   var showProducts = "SELECT * FROM products";
   // Connects to the server to display the inventory
-  connection.query(showAllProducts, function(err, results) {
+  connection.query(showProducts, function(err, results) {
     if (err) throw err;
 
     console.log("Current Inventory: ");
@@ -30,12 +30,12 @@ function showInventory() {
 
     // Include the ids, names, and prices of products for sale
     var resultStr = "";
-    for (var i = 0, i < results.length, i++) {
+    for (var i = 0; i < results.length; i++) {
       resultStr = "";
-      resultStr += "Product ID: " + results[i].item_id + " ,";
-      resultStr += "Name: " + results[i].product_name + " ,";
-      resultStr += "Department: " + results[i].department + " ,";
-      resultStr += "Price: $" + results[i].price + " ,";
+      resultStr += "Product ID: " + results[i].item_id + ", ";
+      resultStr += "Name: " + results[i].product_name + ", ";
+      resultStr += "Department: " + results[i].department + ", ";
+      resultStr += "Price: $" + results[i].price + ", ";
 
       console.log(resultStr);
     }
@@ -69,9 +69,11 @@ function placeOrder() {
     // Takes the user input for the stock_quantity
     var quantityOfItem = input.stock_quantity;
 
+    var showSelectedProducts = "SELECT * FROM products";
+
     // Connects to the server
-    connection.query(showProducts, {item_id: item}, function(err, results) {
-      if err throw err;
+    connection.query(showSelectedProducts, {item_id: itemSelected}, function(err, results) {
+      // if (err) throw err
 
       // Validates that the user enter an item_id
       if (results.length === 0) {
@@ -94,7 +96,7 @@ function placeOrder() {
 
           // Connects to the server to update the inventory
           connection.query(updateProductInventory, function(err, results) {
-            if err throw err;
+            if (err) throw err
 
             console.log("Your order is processing! Your total is $" + resultData.price * quantityOfItem);
             console.log("Thank you for your purchase!");
